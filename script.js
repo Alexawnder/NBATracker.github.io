@@ -1,3 +1,11 @@
+const requestURL ="https://api.balldontlie.io/v1/xxxxxxxx";
+    
+const options = {
+    headers: {
+        Authorization: "e79503ab-9420-4985-a6d0-3b624ec668ce"
+    }
+};
+
 async function createList(){
     const players = []; // Array to store player data
     const playerRankingsElement = document.getElementById('playerRankings');
@@ -28,7 +36,12 @@ async function createList(){
 
         for (const playerName of playerNames) {
             try {
-                const response = await fetch(`https://www.balldontlie.io/api/v1/players?search=${playerName}`);
+                const response = await fetch(`https://api.balldontlie.io/v1/players?search=${playerName}`, {
+                    headers: {
+                      'Authorization': apiKey
+                      // Other headers if required by the API
+                    }
+                  });
                 const data = await response.json();
                 var player = data.data[0];
                 var playerID = player.id;
@@ -72,7 +85,12 @@ async function showInfo() {
 
     try {
         // Searches for player based on the name
-        const response = await fetch(`https://www.balldontlie.io/api/v1/players?search=${playerName}`);
+        const response = await fetch(`https://api.balldontlie.io/v1/players?search=${playerName}`, {
+            headers: {
+              'Authorization': apiKey
+              // Other headers if required by the API
+            }
+          });
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -166,7 +184,12 @@ function updatePlayerUI(players) {
 async function getPlayerStats(playerID) {
     return new Promise(async (resolve, reject) => {
         try {
-            const response = await fetch('https://www.balldontlie.io/api/v1/stats?seasons[]=2023&page=2&player_ids[]=' + playerID);
+            const response = await fetch(`https://api.balldontlie.io/v1/season_averages?seasons[]=2023&player_ids[]=${playerID}`, {
+                headers: {
+                  'Authorization': apiKey
+                  // Other headers if required by the API
+                }
+              });
 
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -207,7 +230,12 @@ async function getPlayerStats(playerID) {
 async function displayStats(playerID) {
     return new Promise(async (resolve, reject) => {
         try {
-            const response = await fetch('https://www.balldontlie.io/api/v1/season_averages?seasons[]=2023&player_ids[]=' + playerID);
+            const response = await fetch(`https://api.balldontlie.io/v1/season_averages?seasons[]=2023&player_ids[]=${playerID}`, {
+                headers: {
+                  'Authorization': apiKey
+                  // Other headers if required by the API
+                }
+              });
 
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -329,7 +357,12 @@ button.addEventListener("click", async function () {
 
     try {
         // Searches for player based on the name
-        const response = await fetch(`https://www.balldontlie.io/api/v1/players?search=${playerName}`);
+        const response = await fetch(`https://api.balldontlie.io/v1/players?search=${playerName}`, {
+            headers: {
+              'Authorization': apiKey
+              // Other headers if required by the API
+            }
+          });
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
